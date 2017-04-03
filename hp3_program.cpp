@@ -16,7 +16,7 @@ void Program::Setup()
 	// This is called automatically when the program begins
 
 	// Creating dynamic array with size 6 for room locations.
-	Location* locationList;
+	
 	locationList = new Location[6];
 
 	//Rooms description.
@@ -53,11 +53,12 @@ void Program::Setup()
 	locationList[3].ptrToWest = &locationList[2];
 	locationList[3].ptrToNorth = &locationList[0];
 
-	Location* ptrCurrentLocation;
-	Location* ptrEndLocation;
+	
 
 	ptrCurrentLocation = &locationList[1];
 	ptrEndLocation = &locationList[0];
+
+	
 
 }
 
@@ -85,12 +86,12 @@ void Program::Main()
 	{
 		// Display Current Location
 		DisplayCurrentLocation();
-		
+
 		// Check if a user have reached the end
-		if (ptrCurrentLocation==ptrEndLocation)
+		if (ptrCurrentLocation == ptrEndLocation)
 		{
 			cout << "You have reached your destination! Congratulations!";
-			
+
 			// Break the loop
 			break;
 		}
@@ -100,43 +101,48 @@ void Program::Main()
 		userChoice = GetUserInput();
 
 		// If user's choice is North check if he can move that way.
-		if (userChoice == "n" && ptrCurrentLocation->ptrToNorth != nullptr) 
-			{
-				ptrCurrentLocation = ptrCurrentLocation->ptrToNorth;
-			}
-		
+		if (userChoice == "n" && ptrCurrentLocation->ptrToNorth != nullptr)
+		{
+			ptrCurrentLocation = ptrCurrentLocation->ptrToNorth;
+		}
+
 		// If user's choice is East check if he can move that way.
 		else if (userChoice == "e" && ptrCurrentLocation->ptrToEast != nullptr)
-			{ 
+		{
 			ptrCurrentLocation = ptrCurrentLocation->ptrToEast;
-			}
-		
+		}
+
 		// If user's choice is South check if he can move that way.
 		else if (userChoice == "s" && ptrCurrentLocation->ptrToSouth != nullptr)
-			{
-				ptrCurrentLocation = ptrCurrentLocation->ptrToSouth;
-			}
-		
+		{
+			ptrCurrentLocation = ptrCurrentLocation->ptrToSouth;
+		}
+
 		// If user's choice is West check if he can move that way.
 		else if (userChoice == "w" && ptrCurrentLocation->ptrToWest != nullptr)
-			{
-				ptrCurrentLocation = ptrCurrentLocation->ptrToWest;
-			}
+		{
+			ptrCurrentLocation = ptrCurrentLocation->ptrToWest;
+		}
 
 		// Check if user wants to leave the game
-		else if (userChoice == "q") 
-			{
-				done = true;
-			}
-		
+		else if (userChoice == "q")
+		{
+			done = true;
+		}
+
 		// If none of the above is true inform user that he is doing something wrong
-		else 
-		   {
-			cout << "Invalid Choice!";
-		    } 
+		else
+		{
+			cout << "Invalid Choice!" << endl;
+		}
 	}
 	cout << endl << "GOOD BYE!" << endl;
-	
+	char quit='a';
+	while(quit !='q' && quit !='Q') 
+		{
+		cout << "Press q to quit" << endl;
+		cin >> quit;
+		}
 }
 
 
@@ -152,26 +158,26 @@ void Program::DisplayCurrentLocation()
 	cout << ptrCurrentLocation->description << endl; //Display description of the rooom.
 
 	string move;
-	move = "You can move *";
+	move = "You can move: \t";
 
 	// Check which directions are null
 	if (ptrCurrentLocation->ptrToNorth != nullptr)
 	{
-		move = move + "North ";
+		move = move + "*North ";
 	}
 	if (ptrCurrentLocation->ptrToEast != nullptr)
 	{
-		move = move + "East ";
+		move = move + "*East ";
 	}
 
 	if (ptrCurrentLocation->ptrToSouth != nullptr)
 	{
-		move = move + "South ";
+		move = move + "*South ";
 	}
 
-	else if (ptrCurrentLocation->ptrToWest != nullptr)
+	if (ptrCurrentLocation->ptrToWest != nullptr)
 	{
-		move = move + "West ";
+		move = move + "*West ";
 	}
 
 	cout << move;
@@ -188,9 +194,10 @@ string Program::GetUserInput()
 {
 	string option;
 
-	cout << "Options to move: n to North, e to East, s to South, w to West. q to quit ";
+	cout << endl << "Options to move: n to North, e to East, s to South, w to West. q to quit ";
 	cin >> option;
-
+	cout << endl;
+	
 	return option;
 }
 
